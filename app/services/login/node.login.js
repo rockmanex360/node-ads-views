@@ -13,7 +13,7 @@ module.exports = (async function login() {
             '--no-sandbox'
         ];
         const browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
         }, chromeArgs);
 
         const page = (await browser.pages())[0];
