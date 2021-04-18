@@ -9,10 +9,7 @@ module.exports = (async function login() {
             headless: true,
             args : [
                 '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-background-timer-throttling',
-                '--disable-backgrounding-occluded-windows',
-                '--disable-renderer-backgrounding',
+                '--disable-setuid-sandbox'
             ]
         });
 

@@ -6,7 +6,7 @@ const nodeLogin = require('./app/services/login/node.login');
 const app = express();
 
 // create scheduler task every min
-cron.schedule('0 */4 * * *', function () {
+cron.schedule('0 */6 * * *', function () {
     nodeLogin();
 });
 
