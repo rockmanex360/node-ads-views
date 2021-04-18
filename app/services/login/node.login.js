@@ -9,7 +9,7 @@ module.exports = (async function login() {
             '--disable-background-timer-throttling',
             '--disable-backgrounding-occluded-windows',
             '--disable-renderer-backgrounding',
-            '--mute-audio',
+            '--disable-setuid-sandbox',
             '--no-sandbox'
         ];
         const browser = await puppeteer.launch({
