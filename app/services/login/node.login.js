@@ -5,16 +5,16 @@ let cookieFilePath = 'cookie.json';
 
 module.exports = (async function login() {
     try {
-        const chromeArgs = [
-            '--disable-background-timer-throttling',
-            '--disable-backgrounding-occluded-windows',
-            '--disable-renderer-backgrounding',
-            '--disable-setuid-sandbox',
-            '--no-sandbox'
-        ];
         const browser = await puppeteer.launch({
             headless: true,
-        }, chromeArgs);
+            args : [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-background-timer-throttling',
+                '--disable-backgrounding-occluded-windows',
+                '--disable-renderer-backgrounding',
+            ]
+        });
 
         const page = (await browser.pages())[0];
         
