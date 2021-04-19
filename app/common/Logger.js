@@ -14,7 +14,7 @@ class Logger {
         const timestamp = new Date().toISOString();
 
         this.logs.push(`${timestamp} - ${message}`);
-        fs.appendFile(path, `${timestamp} - ${message}`, (err) => {
+        fs.appendFile(path, `${timestamp} - ${message} \n`, (err) => {
             if (err)
                 console.error("Failed to write file");
         });

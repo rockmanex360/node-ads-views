@@ -6,8 +6,11 @@ const nodeMain = require('./app/services/automate/node.main');
 const app = express();
 
 // create scheduler task every min
-cron.schedule('0 0/5 * * *', function () {
+cron.schedule('0 0/4 * * *', function () {
+    var dt = new Date();
+    dt.setHours(dt.getHours() + 4);
     nodeMain();
+    console.info(`next running is ${ new Date(dt).toLocaleString('id') }`);
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
