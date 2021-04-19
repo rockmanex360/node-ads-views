@@ -6,7 +6,7 @@ const nodeMain = require('./app/services/automate/node.main');
 const app = express();
 
 // create scheduler task every min
-cron.schedule('0 0/6 * * *', function () {
+cron.schedule('0 0/5 * * *', function () {
     nodeMain();
 });
 
