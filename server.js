@@ -1,13 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cron = require('node-cron');
-const nodeLogin = require('./app/services/login/node.login');
+const nodeMain = require('./app/services/automate/node.main');
 
 const app = express();
 
 // create scheduler task every min
-cron.schedule('0 */6 * * *', function () {
-    nodeLogin();
+cron.schedule('0 0/6 * * *', function () {
+    nodeMain();
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));

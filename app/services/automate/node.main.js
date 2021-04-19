@@ -32,7 +32,7 @@ const asc_url = [
 
 const excludeUrl = [];
 
-(async function main() {
+module,exports = (async function main() {
     try
     {
         let currentTime = parseInt(new Date().toLocaleDateString('id', {hour: 'numeric'}));
