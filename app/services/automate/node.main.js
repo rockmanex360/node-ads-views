@@ -67,7 +67,10 @@ module,exports = (async function main() {
                         counter += 1;
 
                     if (disable != null)
+                    {
+                        console.log("Ads is not available");
                         continue;
+                    }
                     
                     var exclude = await element.$eval(`#idloadvideorefresh > div > div:nth-child(${ i + 1 }) > div > p.card-text.pt-3.pl-3.pr-3 > a`, 
                         item => item.innerHTML);
