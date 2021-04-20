@@ -103,13 +103,17 @@ module,exports = (async function main() {
 
                     console.info("ads has been clicked");
                     
-                    let multiAds = popupPage.$('body > div.container-fluid.px-0 > div > div:nth-child(2) > div > div.col-md-4.col-sm-12.text-center.border.p-4 > form > p:nth-child(2) > button');
+                    let multiAds = await popupPage.$('body > div.container-fluid.px-0 > div > div:nth-child(2) > div > div.col-md-4.col-sm-12.text-center.border.p-4 > form > p:nth-child(2) > button');
                     if (multiAds != null){
                         await multiAds.click();
                         logger.log("Multiple ads has been clicked");
                     }
                     // if ads present change counter into 0
                     counter = 0;
+
+                    await popupPage.waitForNavigation({ 
+                        waitUntil: 'networkidle0'
+                    })
 
                     try {
                         await popupPage.waitForSelector('#idbtn_play_video');
