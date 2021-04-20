@@ -6,11 +6,15 @@ const nodeMain = require('./app/services/automate/node.main');
 const app = express();
 
 // create scheduler task every min
-cron.schedule('0 0/4 * * *', function () {
+cron.schedule('0 0/4 * * *', async function () {
     var dt = new Date();
     dt.setHours(dt.getHours() + 4);
-    nodeMain();
+    await nodeMain();
     console.info(`next running is ${ new Date(dt).toLocaleString('id') }`);
+});
+
+cron.schedule('*/20 * * * *', async function () {
+    console.info("Refresh 20 min");
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,5 +28,5 @@ app.get('/', (req, res) => {
 require('./app/routes/node.routes')(app);
 
 app.listen(process.env.PORT || 5000, () => {
-    console.log("server is listening on port 3000");
+    console.log("server is listening on port 5000");
 })
