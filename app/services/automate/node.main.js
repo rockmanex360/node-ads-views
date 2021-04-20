@@ -111,10 +111,6 @@ module,exports = (async function main() {
                     // if ads present change counter into 0
                     counter = 0;
 
-                    await popupPage.waitForNavigation({ 
-                        waitUntil: 'networkidle0'
-                    })
-
                     try {
                         await popupPage.waitForSelector('#idbtn_play_video');
                     }catch(e){
