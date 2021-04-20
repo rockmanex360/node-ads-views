@@ -1,13 +1,13 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-const nodeMain = require('./app/services/automate/node.main');
+const nodeMain = require('../automate/node.main');
 
 let cookieFilePath = 'cookie.json';
 
 module.exports = (async function login() {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args : [
             '--no-sandbox',
             '--disable-setuid-sandbox'
