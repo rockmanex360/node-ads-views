@@ -22,7 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.json({"Message" : "Is Running"});
+    nodeMain();
+    res.json({"Message" : "Force Running"});
 });
 
 require('./app/routes/node.routes')(app);
