@@ -1,18 +1,19 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
+const nodeMain = require('./app/services/automate/node.main');
+
 let cookieFilePath = 'cookie.json';
 
 module.exports = (async function login() {
+    const browser = await puppeteer.launch({
+        headless: true,
+        args : [
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+        ]
+    });
     try {
-        const browser = await puppeteer.launch({
-            headless: true,
-            args : [
-                '--no-sandbox',
-                '--disable-setuid-sandbox'
-            ]
-        });
-
         const page = (await browser.pages())[0];
         
         await page.setDefaultNavigationTimeout(0);
@@ -60,6 +61,8 @@ module.exports = (async function login() {
         return browserWS;
     } catch (e) {
         console.log("There's some error occurs", e);
+        await browser.close();
+        nodeMain();
     }
 })();
 
