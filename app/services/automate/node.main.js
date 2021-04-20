@@ -41,12 +41,16 @@ module,exports = (async function main() {
         browserWSEndpoint : loginBrowser
     });
 
+    console.log("Login Success");
+
     try
     {
         var page = (await browser.pages())[0];
         await page.setDefaultNavigationTimeout(0);
         
         for (let urlIndex = 0; urlIndex < arr.length; urlIndex++) {
+            console.log(`accessing page ${ arr[urlIndex] }`);
+
             await page.goto(arr[urlIndex], {
                 waitUntil: 'networkidle2'
             });
