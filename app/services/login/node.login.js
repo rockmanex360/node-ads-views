@@ -5,7 +5,7 @@ const nodeMain = require('../automate/node.main');
 
 let cookieFilePath = 'cookie.json';
 
-module.exports = (async function login() {
+async function login() {
     const browser = await puppeteer.launch({
         headless: true,
         args : [
@@ -62,15 +62,8 @@ module.exports = (async function login() {
     } catch (e) {
         console.log("There's some error occurs", e);
         await browser.close();
-        nodeMain();
+        nodeMain.main();
     }
-})();
+};
 
-function saveCookie(cookie) {
-    fs.writeFileSync(cookieFilePath, JSON.stringify(cookie), function(err) { 
-        if (err) {
-            console.log('The file could not be written.', err)
-        }
-        console.log('Session has been successfully saved')
-    });
-}
+module.exports = { login };

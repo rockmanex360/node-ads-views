@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cron = require('node-cron');
-const nodeMain = require('./app/services/automate/node.main');
+const main = require('./app/services/automate/node.main');
 
 const app = express();
 
@@ -9,12 +9,10 @@ const app = express();
 cron.schedule('0 0/4 * * *', async function () {
     var dt = new Date();
     dt.setHours(dt.getHours() + 4);
-    await nodeMain();
-    console.info(`next running is ${ new Date(dt).toLocaleString('id') }`);
-});
 
-cron.schedule('*/20 * * * *', async function () {
-    console.info("Refresh 20 min");
+    await main.main();
+    
+    console.info(`next running is ${ new Date(dt).toLocaleString('id') }`);
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,9 +20,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    nodeMain();
-    res.json({"Message" : "Force Running"});
+    res.json({Message : "Is Running"});
 });
+
+app.get('/force', (req, res) => {
+    main.main();
+    res.json({Message: "Is Forced"});
+})
 
 require('./app/routes/node.routes')(app);
 

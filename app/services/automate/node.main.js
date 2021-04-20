@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 
-
 const login = require('../login/node.login.js');
 const logger = require('../../common/Logger');
 
@@ -32,11 +31,11 @@ const asc_url = [
 
 const excludeUrl = [];
 
-module,exports = (async function main() {
+async function main() {
     let currentTime = parseInt(new Date().toLocaleDateString('id', {hour: 'numeric'}));
     let arr = currentTime >= 6 ? asc_url : desc_url;
 
-    loginBrowser = await login;
+    loginBrowser = await login.login();
     var browser = await puppeteer.connect({
         browserWSEndpoint : loginBrowser
     });
@@ -166,4 +165,6 @@ module,exports = (async function main() {
         await browser.close();
         main();
     }
-})();
+};
+
+module.exports = { main };
