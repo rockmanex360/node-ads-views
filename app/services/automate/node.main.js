@@ -33,16 +33,16 @@ const asc_url = [
 const excludeUrl = [];
 
 module,exports = (async function main() {
+    let currentTime = parseInt(new Date().toLocaleDateString('id', {hour: 'numeric'}));
+    let arr = currentTime >= 6 ? asc_url : desc_url;
+
+    loginBrowser = await login;
+    var browser = await puppeteer.connect({
+        browserWSEndpoint : loginBrowser
+    });
+
     try
     {
-        let currentTime = parseInt(new Date().toLocaleDateString('id', {hour: 'numeric'}));
-        let arr = currentTime >= 6 ? asc_url : desc_url;
-
-        loginBrowser = await login;
-        var browser = await puppeteer.connect({
-            browserWSEndpoint : loginBrowser
-        });
-        
         var page = (await browser.pages())[0];
         await page.setDefaultNavigationTimeout(0);
         
@@ -101,7 +101,7 @@ module,exports = (async function main() {
                     
                     let multiAds = popupPage.$('body > div.container-fluid.px-0 > div > div:nth-child(2) > div > div.col-md-4.col-sm-12.text-center.border.p-4 > form > p:nth-child(2) > button');
                     if (multiAds != null){
-                        (await multiAds).click();
+                        await multiAds.click();
                         logger.log("Multiple ads has been clicked");
                     }
                     // if ads present change counter into 0
@@ -159,5 +159,7 @@ module,exports = (async function main() {
     }catch (err)
     {
         console.log(err);
+        await browser.close();
+        main();
     }
 })();
