@@ -9,10 +9,9 @@ const app = express();
 cron.schedule('0 0/4 * * *', async function () {
     var dt = new Date();
     dt.setHours(dt.getHours() + 4);
-
-    await main.main();
-    
     console.info(`next running is ${ new Date(dt).toLocaleString('id') }`);
+    
+    await main.main();
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));

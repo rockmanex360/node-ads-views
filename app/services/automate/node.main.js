@@ -32,6 +32,8 @@ const asc_url = [
 const excludeUrl = [];
 
 async function main() {
+    console.log("Bot is running");
+
     let currentTime = parseInt(new Date().toLocaleDateString('id', {hour: 'numeric'}));
     let arr = currentTime >= 6 ? asc_url : desc_url;
 
@@ -153,7 +155,7 @@ async function main() {
                     break;
 
                 logger.log("main page is refreshed");
-                await page.reload(desc_url); 
+                await page.reload(arr); 
             };
         }
 
