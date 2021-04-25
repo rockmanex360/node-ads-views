@@ -11,7 +11,7 @@ class Logger {
     }
 
     log(message) {
-        const timestamp = new Date().toISOString();
+        const timestamp = new Date().toLocaleDateString("id-ID");
 
         fs.appendFile(path, `[${timestamp}] ${message} \n`, (err) => {
             if (err)

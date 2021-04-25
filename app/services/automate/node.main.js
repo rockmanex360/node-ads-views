@@ -32,17 +32,18 @@ const asc_url = [
 const excludeUrl = [];
 
 async function main() {
-    console.log("Bot is running");
+    logger.log("Bot is running");
 
-    let currentTime = parseInt(new Date().toLocaleDateString('id', {hour: 'numeric'}));
-    let arr = currentTime >= 6 ? asc_url : desc_url;
+    // let currentTime = parseInt(new Date().toLocaleDateString("id-ID", {hour: 'numeric'}));
+    // let arr = currentTime >= 6 ? asc_url : desc_url;
+    let arr = asc_url;
 
     loginBrowser = await login.login();
     var browser = await puppeteer.connect({
         browserWSEndpoint : loginBrowser
     });
 
-    console.log("Login Success");
+    logger.log("Login Success");
 
     try
     {
@@ -50,7 +51,7 @@ async function main() {
         await page.setDefaultNavigationTimeout(0);
         
         for (let urlIndex = 0; urlIndex < arr.length; urlIndex++) {
-            console.log(`accessing page ${ arr[urlIndex] }`);
+            logger.log(`accessing page ${ arr[urlIndex] }`);
 
             await page.goto(arr[urlIndex], {
                 waitUntil: 'networkidle2'
@@ -72,10 +73,7 @@ async function main() {
                         counter += 1;
 
                     if (disable != null)
-                    {
-                        console.log("Ads is not available");
                         continue;
-                    }
                     
                     var exclude = await element.$eval(`#idloadvideorefresh > div > div:nth-child(${ i + 1 }) > div > p.card-text.pt-3.pl-3.pr-3 > a`, 
                         item => item.innerHTML);
