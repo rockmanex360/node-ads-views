@@ -6,9 +6,9 @@ const main = require('./app/services/automate/node.main');
 const app = express();
 
 // create scheduler task every min
-cron.schedule('0 */4 * * *', async function () {
+cron.schedule('0 */2 * * *', async function () {
     var dt = new Date();
-    dt.setHours(dt.getHours() + 4);
+    dt.setHours(dt.getHours() + 2);
     console.info(`next running is ${ new Date(dt).toLocaleString('id') }`);
     
     await main.main();

@@ -4,6 +4,9 @@ const path = "log.json";
 class Logger {
     constructor() {
         this.logs = [];
+        let date = new Date();
+        date.setHours(date.getHours() + 7);
+        this.timestamp = date.toISOString().toLocaleString("id-ID");
     }
 
     get count() {
@@ -11,8 +14,6 @@ class Logger {
     }
 
     log(message) {
-        const timestamp = new Date(new Date().toISOString()).toLocaleString("id-ID");
-
         fs.appendFile(path, `[${timestamp}] ${message} \n`, (err) => {
             if (err)
                 console.error("Failed to write file");
