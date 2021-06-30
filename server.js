@@ -14,9 +14,9 @@ cron.schedule('0 */2 * * *', async function () {
     await main.main();
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.json({Message : "Is Running"});

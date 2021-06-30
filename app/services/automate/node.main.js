@@ -3,19 +3,6 @@ const puppeteer = require('puppeteer');
 const login = require('../login/node.login.js');
 const logger = require('../../common/Logger');
 
-const desc_url = [
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=10",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=9",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=8",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=7",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=6",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=5",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=4",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=3",
-    "https://rajaview.id/myaccount/lihat-iklan.php?page=2",
-    "https://rajaview.id/myaccount/lihat-iklan.php"
-];
-
 const asc_url = [
     "https://rajaview.id/myaccount/lihat-iklan.php",
     "https://rajaview.id/myaccount/lihat-iklan.php?page=2",
@@ -56,7 +43,20 @@ async function main() {
             await page.goto(arr[urlIndex], {
                 waitUntil: 'networkidle2'
             });
-            
+
+            let maintenanceCounter = 0;
+            while (true) {
+                const maintenance = await page.$('body > div > p:nth-child(3)');
+                if (!maintenance)
+                    break;
+
+                if (maintenanceCounter === 5)
+                    break;
+
+                await page.reload(arr);
+                maintenanceCounter++;
+            }
+
             var counter = 0;
             var errorCount = 0;
 
@@ -67,7 +67,7 @@ async function main() {
                 
                 var error_page = [];
                 for (const [i, element] of ads.entries()) {
-                    var disable = await element.$(`#idloadvideorefresh > div > div:nth-child(${ i + 1 }) > div > img:nth-child(1)`);
+                    var disable = await element.$(`#idloadvideorefresh > div.col-12.p-0.fleft > div > div:nth-child(${ i + 1 }) > div > img:nth-child(1)`);
 
                     if (i == ads.length - 1)
                         counter += 1;
@@ -75,7 +75,7 @@ async function main() {
                     if (disable != null)
                         continue;
                     
-                    var exclude = await element.$eval(`#idloadvideorefresh > div > div:nth-child(${ i + 1 }) > div > p.card-text.pt-3.pl-3.pr-3 > a`, 
+                    var exclude = await element.$eval(`#idloadvideorefresh > div.col-12.p-0.fleft > div > div:nth-child(${ i + 1 }) > div > p.card-text.pt-3.pl-3.pr-3 > a`,
                         item => item.innerHTML);
 
                     var condition = 0;

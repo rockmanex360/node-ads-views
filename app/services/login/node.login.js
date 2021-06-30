@@ -7,7 +7,7 @@ let cookieFilePath = 'cookie.json';
 
 async function login() {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args : [
             '--no-sandbox',
             '--disable-setuid-sandbox'
