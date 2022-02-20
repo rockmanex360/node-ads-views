@@ -42,8 +42,8 @@ async function login() {
                 return browserWS;
             }
         }*/
-        await page.type('input[name="txtemail"]', 'irvan.nurf21@gmail.com', { delay : 200 });
-        await page.type('input[name="txtpwd"]', 'Scandalband123', { delay: 200 });
+        await page.type('input[name="txtemail"]', '<your email>', { delay : 200 });
+        await page.type('input[name="txtpwd"]', '<your password>', { delay: 200 });
 
         
         const loginButton = page.$('input[name="kirim"]');
